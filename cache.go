@@ -26,7 +26,7 @@ func (c Cache) Get(key string) (string, bool) {
 }
 
 func (c *Cache) Put(key, value string) {
-	c.cache[key] = customCache{value: value, deadline: time.Unix(1<<63-1, 0)}
+	c.cache[key] = customCache{value: value, deadline: time.Unix(1<<63-62135596801, 999999999)}
 }
 
 func (c Cache) Keys() []string {
