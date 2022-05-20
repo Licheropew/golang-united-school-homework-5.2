@@ -16,9 +16,9 @@ func NewCache() *Cache {
 }
 
 func (c Cache) Get(key string) (string, bool) {
+	now := time.Now()
 	for k, v := range c.cache {
-		now := time.Now()
-		if k == key && v.deadline.Before(now) {
+		if k == key && (v.deadline.Before(now) || v.deadline == time.Unix(1<<63-1, 0)) {
 			return v.value, true
 		}
 	}
@@ -30,10 +30,10 @@ func (c *Cache) Put(key, value string) {
 }
 
 func (c Cache) Keys() []string {
+	now := time.Now()
 	result := []string{}
 	for k, v := range c.cache {
-		now := time.Now()
-		if v.deadline.Before(now) {
+		if v.deadline.Before(now) || v.deadline == time.Unix(1<<63-1, 0) {
 			result = append(result, k)
 		}
 	}
