@@ -16,8 +16,8 @@ func NewCache() *Cache {
 }
 
 func (c Cache) Get(key string) (string, bool) {
-	now := time.Now()
 	for k, v := range c.cache {
+		now := time.Now()
 		if k == key && v.deadline.Before(now) {
 			return v.value, true
 		}
@@ -31,8 +31,8 @@ func (c *Cache) Put(key, value string) {
 
 func (c Cache) Keys() []string {
 	result := []string{}
-	now := time.Now()
 	for k, v := range c.cache {
+		now := time.Now()
 		if v.deadline.Before(now) {
 			result = append(result, k)
 		}
