@@ -12,7 +12,7 @@ type customCache struct {
 }
 
 func NewCache() *Cache {
-	return &Cache{}
+	return &Cache{cache: make(map[string]customCache)}
 }
 
 func (c Cache) Get(key string) (string, bool) {
