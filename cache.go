@@ -11,8 +11,8 @@ type customCache struct {
 	deadline time.Time
 }
 
-func NewCache() Cache {
-	return Cache{}
+func NewCache() *Cache {
+	return &Cache{}
 }
 
 func (c Cache) Get(key string) (string, bool) {
@@ -41,4 +41,5 @@ func (c Cache) Keys() []string {
 }
 
 func (c *Cache) PutTill(key, value string, deadline time.Time) {
+	c.cache[key] = customCache{value: value, deadline: deadline}
 }
